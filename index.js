@@ -1,4 +1,5 @@
 console.clear();
+
 const express = require('express');
 const consign = require('consign');
 
@@ -6,14 +7,15 @@ const app = express();
 const path = require('path');
 
 // Configuração do EJS
-app.set('views', path.join(__dirname, 'views'));
+app.set('/views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware para arquivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/node_modules', express.static('node_modules'));
+app.use('/favicon.ico', express.static(path.join(__dirname, 'public', 'img', 'favicon.ico')));
 
 consign()
   .include('src/routes')
@@ -24,8 +26,8 @@ app.listen(3285, () => {
   console.log('Server started on port 3285');
 });
 
-app.get('*', function (req, res) {
-  res.status(404).render('errors/404');
-});
-
 app.locals.formHelpers = require(path.join(__dirname, 'src/helpers/formHelpers'));
+
+app.get('*', function (req, res) {
+  require(path.join(__dirname, 'src', 'helpers')).template(app, res, "errors/404");
+});

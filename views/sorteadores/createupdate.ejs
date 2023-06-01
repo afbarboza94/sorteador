@@ -1,0 +1,36 @@
+<div class="bg-body-tertiary p-5 rounded mt-3">
+    <h1>
+        <%= titlePage %>
+    </h1>
+    <p class="lead">Iniciar um sorteador por tipo.</p>
+    <a class="btn btn-lg btn-secondary mb-3" href="/" role="button">
+        &laquo; Voltar
+    </a>
+
+    <%- formHelpers.formOpen() %>
+        <div class="row">
+            <div class="col-9 mb-3">
+                <label for="nome" class="form-label">Sorteio</label>
+                <%- formHelpers.formInput('nome',sorteio?.nome,`class="form-control" id="nome"
+                    placeholder="Digite o nome do sorteio" `) %>
+            </div>
+            <div class="col-3 mb-3">
+                <label for="data" class="form-label">Data Sorteio</label>
+                <%- formHelpers.formInput('data',sorteio?.data,`class="form-control text-center" id="data"
+                    placeholder="__/__/____" `) %>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <%- formHelpers.formTextarea('descricao',sorteio?.descricao,`class="form-control" id="descricao"
+                placeholder="Digite uma descrição" `) %>
+        </div>
+        <div class="mb-3 text-end">
+            <button type="submit" class="btn btn-lg btn-primary mb-3">
+                Salvar&nbsp;<i class="fa fa-save"></i>
+            </button>
+        </div>
+        <%- formHelpers.formClose() %>
+</div>
+
+<script src="/public/js/sorteadores.js"></script>

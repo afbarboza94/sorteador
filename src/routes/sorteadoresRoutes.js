@@ -8,20 +8,23 @@ const baseUri = function (uri) {
     return '/';
 };
 
-module.exports = function (application) {
-    const sorteadoresController = new Sorteadores(application);
+module.exports = /**
+* @var {{require('express')()}}
+*/
+    function (application) {
+        const sorteadoresController = new Sorteadores();
 
-    application.get(baseUri(), function (req, res) {
-        sorteadoresController.index(req, res);
-    });
+        application.get(baseUri(), function (req, res) {
+            sorteadoresController.index(req, res);
+        });
 
-    // application.get(baseUri('createupdate'), (req, res) => sorteadoresController.createupdate(req, res));
-    // application.post(baseUri('createupdate'), validate.createUpdate, (req, res) => sorteadoresController.createupdate(req, res));
-    // application.put(baseUri('createupdate'), validate.createUpdate, (req, res) => sorteadoresController.createupdate(req, res));
-    
-    // application.delete(baseUri('delete'), validate.delete, (req, res) => sorteadoresController.delete(req, res));
+        application.get(baseUri('sorteios/createupdate'), (req, res) => sorteadoresController.createupdate(req, res));
+        application.post(baseUri('sorteios/createupdate'), validate.createUpdate, (req, res) => sorteadoresController.createupdate(req, res));
+        // application.put(baseUri('createupdate'), validate.createUpdate, (req, res) => sorteadoresController.createupdate(req, res));
 
-    // application.get(baseUri('serverprocessing'), function (req, res) {
-    //     sorteadoresController.serverProcessing(req, res);
-    // });
-};
+        // application.delete(baseUri('delete'), validate.delete, (req, res) => sorteadoresController.delete(req, res));
+
+        // application.get(baseUri('serverprocessing'), function (req, res) {
+        //     sorteadoresController.serverProcessing(req, res);
+        // });
+    };

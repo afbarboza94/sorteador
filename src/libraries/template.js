@@ -1,7 +1,7 @@
-const fs = require('fs');
+var fixedDataPage = {};
 
-module.exports = function () {
-    return function template(res, path, data) {
-        return res.render("templates", { content: `../${path}`, data });
-    }
-}
+module.exports = {
+    fixedDataPage,
+    template: (res, path, data) =>
+        res.render("templates", { content: `../${path}`, data: { ...data, ...fixedDataPage } })
+};

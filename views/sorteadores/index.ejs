@@ -1,0 +1,38 @@
+<div class="bg-body-tertiary p-5 rounded mt-3">
+    <h1>
+        <%= titlePage %>
+    </h1>
+    <p class="lead">Iniciar um sorteador por tipo.</p>
+    <a class="btn btn-lg btn-primary" href="/sorteios/createupdate" role="button">
+        Novo Sorteio &raquo;
+    </a>
+
+    <h3 class="mt-4 text-center text-bold">Sorteios anteriores</h3>
+
+    <table class="table table-sm mt-3">
+        <thead>
+            <tr>
+                <th class="w-50">#</th>
+                <th>Sorteio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (data.length> 0) { %>
+                <% data.forEach(element=> { %>
+                    <tr>
+                        <td>
+                            <%= element.id %>
+                        </td>
+                        <td>
+                            <%= element.nome %>
+                        </td>
+                    </tr>
+                    <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <th class="text-center" colspan="100">Nenhum resultado encontrado!</th>
+                            </tr>
+                            <% } %>
+        </tbody>
+    </table>
+</div>

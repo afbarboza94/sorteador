@@ -7,11 +7,11 @@ module.exports = {
 
     formInput: (name, value = null, extra) => `<input type="text" name="${name}" value="${value ?? ''}" ${extra} autocomplete="off">`,
 
-    formTextarea: (name, value = null, rows = 3, extra) => `<textarea name="${name}" rows="${rows}" ${extra}>${value ?? ''}</textarea>`,
+    formTextarea: (name, value = null, extra, rows = 3) => `<textarea name="${name}" rows="${rows}" ${extra}>${value ?? ''}</textarea>`,
 
     formHidden,
 
-    formOpen: (action, method = 'post', hidden = {}, extra) => `<form action="${action}" method="${method}" ${extra}>` +
+    formOpen: (action = '', extra = '', hidden = {}, method = 'post') => `<form action="${action}" method="${method}" ${extra}>` +
         `${typeof hidden == 'object' && hidden != null ? Object.keys(hidden).map((key) => formHidden(key, hidden[key])).join('') : ''}`,
 
     formClose: () => `</form>`,
