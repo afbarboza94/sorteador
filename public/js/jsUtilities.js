@@ -201,11 +201,13 @@ window.addEventListener('DOMContentLoaded', event => {
                         }
                     })
                     .catch(function (error) {
-                        if (typeof error.response !== 'undefined') {
+                        console.log(error);
+                        if (typeof error?.response?.data?.errorsField !== 'undefined') {
+                            console.log(error.response.data.errorsField);
+                        } else if (typeof error.response !== 'undefined') {
                             const response = error.response;
                             form.alertModal(msgByStatus(response), response.status);
-                        }
-                        else {
+                        } else {
                             console.log(error);
                         }
                     })

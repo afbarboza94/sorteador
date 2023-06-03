@@ -3,7 +3,9 @@ const {
   Model, DataTypes
 } = require('sequelize');
 
-class ListaSorteio extends Model {
+const { MainModel, sequelize } = require('./mainModel');
+
+class ListaSorteio extends MainModel {
   /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.

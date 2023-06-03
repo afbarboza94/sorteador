@@ -3,36 +3,49 @@
         <%= titlePage %>
     </h1>
     <p class="lead">Iniciar um sorteador por tipo.</p>
-    <a class="btn btn-lg btn-primary" href="/sorteios/createupdate" role="button">
+    <button class="btn btn-lg btn-primary" onclick="showModal();" role="button">
         Novo Sorteio &raquo;
-    </a>
+    </button>
 
     <h3 class="mt-4 text-center text-bold">Sorteios anteriores</h3>
 
-    <table class="table table-sm mt-3">
-        <thead>
-            <tr>
-                <th class="w-50">#</th>
-                <th>Sorteio</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% if (data.length> 0) { %>
-                <% data.forEach(element=> { %>
-                    <tr>
-                        <td>
-                            <%= element.id %>
-                        </td>
-                        <td>
-                            <%= element.nome %>
-                        </td>
-                    </tr>
-                    <% }) %>
-                        <% } else { %>
-                            <tr>
-                                <th class="text-center" colspan="100">Nenhum resultado encontrado!</th>
-                            </tr>
-                            <% } %>
-        </tbody>
-    </table>
+    <div class="card mb-4">
+        <table class="table" id="tableSorteiios">
+            <thead>
+                <tr>
+                    <th style="width: 1%;" scope="col">#</th>
+                    <th scope="col">Sorteio</th>
+                    <th style="width: 1%;" scope="col">Data</th>
+                    <th style="width: 1%;" scope="col"></th>
+                    <th style="width: 1%;" scope="col"></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <th></th>
+                    <th></th>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
+
+<div class="modal fade" id="crud" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+      </div>
+      <div class="modal-body mx-auto">
+        <div class="spinner-border" role="status"></div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/public/js/sorteadores/index.js"></script>

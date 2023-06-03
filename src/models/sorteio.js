@@ -14,6 +14,30 @@ class Sorteio extends MainModel {
   static associate(models) {
     // define association here
   }
+
+  static serverProcessing = async (params = {}) => {
+    const dataformatted = MainModel.formatDate('Sorteios.data');
+
+    const a = await MainModel.serverProcessing({
+      ...params,
+      columns: [
+        "id", "nome", "dataformatted", "id", "id_excluir"
+      ],
+      colsOrder: [
+        "id", "nome", "data"
+      ],
+      colsWhere: [
+        "", "Sorteios.nome", dataformatted
+      ],
+      priorityGroupColumn: 'Sorteios.id',
+      select: `select Sorteios.nome, Sorteios.data,\n` +
+        `  (${dataformatted}) as dataformatted,\n`+
+        `  Sorteios.id, Sorteios.id as id_excluir\n`,
+      from_join: `from Sorteios\n`,
+    });
+
+    return a;
+  }
 }
 
 Sorteio.init({

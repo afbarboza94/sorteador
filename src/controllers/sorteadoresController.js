@@ -1,5 +1,8 @@
+const { Op } = require("sequelize");
 const { template, fixedDataPage } = require("../libraries/template");
 const SorteioModel = require("../models/sorteio");
+const sequelize = require("../configs/db");
+const ListaSorteioModel = require("../models/listasorteio");
 
 fixedDataPage.titlePage = "Sorteador";
 
@@ -12,34 +15,75 @@ module.exports = class Sorteadores {
         template(res, "sorteadores/index", { data });
     };
 
+    sorteio = async (req, res) => {
+        const data = {
+            sorteio: await SorteioModel.findByPk(req.query.id),
+        };
+        if (!data.sorteio || Object.keys(data.sorteio).length == 0) {
+            res.redirect('/');
+            return;
+        }
+
+        data.listaSorteio = await ListaSorteioModel.findByPk(data.sorteio.id);
+
+        template(res, "sorteadores/sorteio", data);
+    };
+
     createupdate = async (req, res) => {
         const data = {
-            sorteio: null
+            sorteio: null,
+            errors: null,
         };
         try {
+            if (req.session?.errors) {
+                throw req.session.errors;
+            }
+
             if (Object.keys(req.body).length > 0) {
-                let sorteio;
-                const nivelPai = await SorteioModel.findOne({ where: { id: req.body.sorteio } });
-                if (req.body.id) {
-                    sorteio = await SorteioModel.update({ sorteio: req.body.sorteio, nome: req.body.nome, nivel: nivelPai.nivel + 1 }, { where: { id: req.body.id } });
-                } else {
-                    sorteio = await SorteioModel.create({ sorteio: req.body.sorteio, nome: req.body.nome, nivel: nivelPai.nivel + 1 });
-                }
-                res.status(200).send({ id: sorteio.id });
+                const sorteio = await sequelize.transaction(async t => {
+                    let sorteio,
+                        set = { nome: req.body.nome, data: req.body.data, descricao: req.body.descricao };
+                    if (req.body.id) {
+                        sorteio = await SorteioModel.update(set, { where: { id: { [Op.eq]: req.body.id } }, transaction: t });
+                    } else {
+                        sorteio = await SorteioModel.create(set, { transaction: t });
+                    }
+
+                    const listasorteio = await ListaSorteioModel.findOne({ where: { sorteio: { [Op.eq]: sorteio.id } } }),
+                        setLista = {
+                            sorteio: sorteio.id,
+                            json: JSON.stringify(req.body.lista, (key, value) => {
+                                return value.replace(/[\n\r]+/g, ',');
+                            })
+                        };
+                    if (listasorteio && listasorteio.id) {
+                        sorteio = await ListaSorteioModel.update(setLista, { where: { id: { [Op.eq]: listasorteio.id } }, transaction: t });
+                    } else {
+                        sorteio = await ListaSorteioModel.create(set, { transaction: t });
+                    }
+
+                    return sorteio;
+                });
+                res.redirect(`/sorteios?id=${sorteio.id}`);
                 return;
             }
 
-            const where = {};
-            if (req.query.id) {
-                const id = req.query.id;
-                data.sorteio = await SorteioModel.findByPk(id);
-                where.id = { [Op.ne]: id };
-            }
+            data.sorteio = await SorteioModel.findByPk(req.query.id);
         } catch (error) {
-            res.status(error?.statusCode ?? 500).send(error);
-            console.log('erro: ',error);
+            res.status(500).send(error);
+            console.log(error);
         }
-        /* console.log(data); */
-        template(res, "sorteadores/createupdate", data);
+        res.render("sorteadores/createupdate", data);
     };
+
+    serverProcessing = async (req, res) => {
+        let data = {};
+        try {
+            data = await SorteioModel.serverProcessing(req.query ?? req.body);
+        } catch (error) {
+            console.log(error);
+        }
+
+        res.json(data);
+    }
 };

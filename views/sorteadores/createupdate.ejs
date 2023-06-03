@@ -1,36 +1,72 @@
-<div class="bg-body-tertiary p-5 rounded mt-3">
-    <h1>
-        <%= titlePage %>
-    </h1>
-    <p class="lead">Iniciar um sorteador por tipo.</p>
-    <a class="btn btn-lg btn-secondary mb-3" href="/" role="button">
-        &laquo; Voltar
-    </a>
-
-    <%- formHelpers.formOpen() %>
-        <div class="row">
-            <div class="col-9 mb-3">
-                <label for="nome" class="form-label">Sorteio</label>
-                <%- formHelpers.formInput('nome',sorteio?.nome,`class="form-control" id="nome"
-                    placeholder="Digite o nome do sorteio" `) %>
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <form action="/sorteios/createupdate" method="<%= sorteio ? 'put' : 'post' %>" id="formSorteador">
+            <input type="hidden" name="id" value="<%= sorteio ? sorteio.id : '' %>">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <button type="button" class="btn btn-primary btn-sm"
+                        onclick="document.getElementById('crud').loadModal()"><i class="fas fa-sync-alt"></i></button>
+                    <%= sorteio ? 'Atualizar' : 'Cadastrar' %> Sorteio
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="col-3 mb-3">
-                <label for="data" class="form-label">Data Sorteio</label>
-                <%- formHelpers.formInput('data',sorteio?.data,`class="form-control text-center" id="data"
-                    placeholder="__/__/____" `) %>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-9 mb-3">
+                        <label for="nome" class="form-label">Sorteio</label>
+                        <%- formHelpers.formInput('nome',sorteio?.nome,`class="form-control text-uppercase${(errors?.nome ? ' is-invalid' : (sorteio?.nome ?' is-valid' : ''))}"
+                            id="nome" placeholder="Digite o nome do sorteio"`) %>
+                            <% if (errors?.nome) { %>
+                                <div class="invalid-feedback">
+                                    <%= errors.nome.msg %>
+                                </div>
+                                <% } else if (sorteio?.nome) { %>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <% } %>
+                    </div>
+                    <div class="col-3 mb-3">
+                        <label for="data" class="form-label">Data Sorteio</label>
+                        <%- formHelpers.formInput('data',sorteio?.data,`class="form-control text-center${(errors?.data ? ' is-invalid' : (sorteio?.data ?' is-valid' : ''))}"
+                            id="data" placeholder="__/__/____" `) %>
+                            <% if (errors?.data) { %>
+                                <div class="invalid-feedback">
+                                    <%= errors.data.msg %>
+                                </div>
+                                <% } else if (sorteio?.data) { %>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <% } %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="lista" class="form-label">Lista Candidatos</label>
+                    <%- formHelpers.formTextarea('lista',sorteio?.lista,`class="form-control text-uppercase${(errors?.lista ? ' is-invalid' : (sorteio?.lista ?' is-valid' : ''))}"
+                        id="lista" placeholder="Cole/escreva a lista de candidatos separado por enter" `) %>
+                        <% if (errors?.lista) { %>
+                            <div class="invalid-feedback">
+                                <%= errors.lista.msg %>
+                            </div>
+                            <% } else if (sorteio?.lista) { %>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <% } %>
+                </div>
+                <div class="mb-3">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <%- formHelpers.formTextarea('descricao',sorteio?.descricao,`class="form-control" id="descricao"
+                        placeholder="Digite uma descrição" `) %>
+                </div>
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="descricao" class="form-label">Descrição</label>
-            <%- formHelpers.formTextarea('descricao',sorteio?.descricao,`class="form-control" id="descricao"
-                placeholder="Digite uma descrição" `) %>
-        </div>
-        <div class="mb-3 text-end">
-            <button type="submit" class="btn btn-lg btn-primary mb-3">
-                Salvar&nbsp;<i class="fa fa-save"></i>
-            </button>
-        </div>
-        <%- formHelpers.formClose() %>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<script src="/public/js/sorteadores.js"></script>
+<script src="/public/js/sorteadores/createupdate.js"></script>
