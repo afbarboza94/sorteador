@@ -1,0 +1,52 @@
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <form action="/premios/createupdate" method="<%= premio ? 'put' : 'post' %>" id="formPremio">
+            <%- (sorteio!="undefined" ? formHelpers.formHidden('sorteio', sorteio) : '' ) %>
+                <input type="hidden" name="id" value="<%= premio ? premio.id : '' %>">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <button type="button" class="btn btn-primary btn-sm"
+                            onclick="document.getElementById('crud').loadModal()"><i
+                                class="fas fa-sync-alt"></i></button>
+                        <%= premio ? 'Atualizar' : 'Cadastrar' %> Prêmio
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-9 mb-3">
+                            <label for="nome" class="form-label">Prêmio</label>
+                            <%- formHelpers.formInput('nome',premio?.nome,`class="form-control text-uppercase${(premio?.nome ?' is-valid' : '')}"
+                                id="nome" placeholder="Digite o nome do prêmio" `) %>
+                                <div class="valid-feedback" valid-div="nome">
+                                    <% if (premio?.nome) { %>
+                                        Looks good!
+                                        <% } %>
+                                </div>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="quantidade" class="form-label">Quantidade</label>
+                            <%- formHelpers.formInput('quantidade',premio?.quantidade,`class="form-control text-end${(premio?.quantidade ?' is-valid' : '')}"
+                                id="quantidade" placeholder="Quantidade" `) %>
+                                <div class="valid-feedback" valid-div="quantidade">
+                                    <% if (premio?.quantidade) { %>
+                                        Looks good!
+                                        <% } %>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <%- formHelpers.formTextarea('descricao',premio?.descricao,`class="form-control" id="descricao"
+                            placeholder="Digite uma descrição" `) %>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+        </form>
+    </div>
+</div>
+
+<script src="/public/js/premios/createupdate.js"></script>

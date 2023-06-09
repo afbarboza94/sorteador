@@ -1,10 +1,6 @@
 console.clear();
 
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
 const consign = require('consign');
 
 const app = express();
@@ -12,17 +8,9 @@ const path = require('path');
 const { template } = require('./src/libraries/template');
 
 // Configuração do EJS
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
   extended: false
-}));
-app.use(cors());
-
-app.use(cookieParser());
-app.use(session({
-  secret: 'sorteador',
-  saveUninitialized: false,
-  resave: false
 }));
 
 app.set('/views', path.join(__dirname, 'views'));

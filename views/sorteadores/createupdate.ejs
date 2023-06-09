@@ -15,45 +15,33 @@
                     <div class="col-9 mb-3">
                         <label for="nome" class="form-label">Sorteio</label>
                         <%- formHelpers.formInput('nome',sorteio?.nome,`class="form-control text-uppercase${(errors?.nome ? ' is-invalid' : (sorteio?.nome ?' is-valid' : ''))}"
-                            id="nome" placeholder="Digite o nome do sorteio"`) %>
-                            <% if (errors?.nome) { %>
-                                <div class="invalid-feedback">
-                                    <%= errors.nome.msg %>
-                                </div>
-                                <% } else if (sorteio?.nome) { %>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
+                            id="nome" placeholder="Digite o nome do sorteio" `) %>
+                            <div class="valid-feedback" valid-div="nome">
+                                <% if (sorteio?.nome) { %>
+                                    Looks good!
                                     <% } %>
+                            </div>
                     </div>
                     <div class="col-3 mb-3">
                         <label for="data" class="form-label">Data Sorteio</label>
                         <%- formHelpers.formInput('data',sorteio?.data,`class="form-control text-center${(errors?.data ? ' is-invalid' : (sorteio?.data ?' is-valid' : ''))}"
                             id="data" placeholder="__/__/____" `) %>
-                            <% if (errors?.data) { %>
-                                <div class="invalid-feedback">
-                                    <%= errors.data.msg %>
-                                </div>
-                                <% } else if (sorteio?.data) { %>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
+                            <div class="valid-feedback" valid-div="data">
+                                <% if (sorteio?.data) { %>
+                                    Looks good!
                                     <% } %>
+                            </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="lista" class="form-label">Lista Candidatos</label>
                     <%- formHelpers.formTextarea('lista',sorteio?.lista,`class="form-control text-uppercase${(errors?.lista ? ' is-invalid' : (sorteio?.lista ?' is-valid' : ''))}"
                         id="lista" placeholder="Cole/escreva a lista de candidatos separado por enter" `) %>
-                        <% if (errors?.lista) { %>
-                            <div class="invalid-feedback">
-                                <%= errors.lista.msg %>
-                            </div>
-                            <% } else if (sorteio?.lista) { %>
-                                <div class="valid-feedback">
+                            <div class="valid-feedback" valid-div="lista">
+                                <% if (sorteio?.lista) { %>
                                     Looks good!
-                                </div>
-                                <% } %>
+                                    <% } %>
+                            </div>
                 </div>
                 <div class="mb-3">
                     <label for="descricao" class="form-label">Descrição</label>

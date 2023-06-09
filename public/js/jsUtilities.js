@@ -102,7 +102,7 @@ window.addEventListener('DOMContentLoaded', event => {
             }
             this.appendChild(range.createContextualFragment(string));
         }).catch(error => {
-            console.log(error);
+            // console.log(error);
             setTimeout(() => myModal.hide(), 1000);
         });
     }
@@ -151,11 +151,23 @@ window.addEventListener('DOMContentLoaded', event => {
             const form = this;
 
             const url = form.getAttribute("action");
+            const fieldValues = document.querySelectorAll(`[valid-div]`);
 
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
+                
+                if (fieldValues.length > 0) {
+                    fieldValues.forEach(el => {
+                        let key = el.getAttribute('valid-div');
+                        document.querySelector(`[valid-div="${key}"]`).innerHTML = 'Looks good!';
+                        document.querySelector(`[valid-div="${key}"]`).classList.add('valid-feedback');
+                        document.querySelector(`[valid-div="${key}"]`).classList.remove('invalid-feedback');
+                        document.querySelector(`[name="${key}"]`).classList.remove('is-valid');
+                        document.querySelector(`[name="${key}"]`).classList.remove('is-invalid');
+                    });
+                }
 
-                console.log('submit');
+                // console.log('submit');
 
                 form.alertModal();
 
@@ -182,10 +194,10 @@ window.addEventListener('DOMContentLoaded', event => {
                     data,
                 })
                     .then(function (response) {
-                        form.alertModal('sucesso', response.status);
+                        form.alertModal('Sucesso', response.status);
 
                         if (response.status === 200) {
-                            console.log(response.data);
+                            // console.log(response.data);
                             const modalElement = document.getElementById('crud');
                             const crudModal = bootstrap.Modal.getOrCreateInstance(modalElement);
 
@@ -201,14 +213,26 @@ window.addEventListener('DOMContentLoaded', event => {
                         }
                     })
                     .catch(function (error) {
-                        console.log(error);
-                        if (typeof error?.response?.data?.errorsField !== 'undefined') {
-                            console.log(error.response.data.errorsField);
-                        } else if (typeof error.response !== 'undefined') {
+                        if (fieldValues.length > 0) {
+                            let errorsField = (error?.response?.data?.errorsField) ?? [];
+                            fieldValues.forEach(el => {
+                                let key = el.getAttribute('valid-div');
+                                if (typeof errorsField[key] == 'undefined') {
+                                    document.querySelector(`[valid-div="${key}"]`).innerHTML = 'Looks good!';
+                                    document.querySelector(`[valid-div="${key}"]`).classList.add('valid-feedback');
+                                    document.querySelector(`[name="${key}"]`).classList.add('is-valid');
+                                } else {
+                                    document.querySelector(`[valid-div="${key}"]`).innerHTML = errorsField[key].msg;
+                                    document.querySelector(`[valid-div="${key}"]`).classList.add('invalid-feedback');
+                                    document.querySelector(`[name="${key}"]`).classList.add('is-invalid');
+                                }
+                            });
+                        }
+                        if (typeof error.response !== 'undefined') {
                             const response = error.response;
                             form.alertModal(msgByStatus(response), response.status);
                         } else {
-                            console.log(error);
+                            // console.log(error);
                         }
                     })
                     .finally(function () {
@@ -386,7 +410,7 @@ window.addEventListener('DOMContentLoaded', event => {
                             })
                             .catch(error => {
                                 closeAllLists();
-                                console.log(error);
+                                // console.log(error);
                             });
                     }
                 }, 500);
@@ -519,7 +543,7 @@ const deleteById = async (url, data, callbackSuccess) => {
             }
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         await swal({
             title: 'Erro',
             text: `Erro ao deletar registro.`,

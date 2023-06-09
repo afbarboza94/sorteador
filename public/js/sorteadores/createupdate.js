@@ -20,7 +20,7 @@
         const form = document.querySelector(".modal form#formSorteador");
         form.submitModal({
             success: (response) => {
-                console.log(response);
+                // console.log(response);
                 // window.location.reload();
                 tableElement.JSTable.update();
             }

@@ -1,0 +1,79 @@
+<div class="bg-body-tertiary p-5 rounded mt-3">
+  <h1>
+    Prêmios do sorteio <%= data?.nome %>
+  </h1>
+  <p class="lead">Lista de Prêmios.</p>
+  <button class="btn btn-lg btn-primary" onclick="showModal('<%= data?.id %>');" type="button">
+    Novo Prêmio &raquo;
+  </button>
+  <a class="btn btn-lg btn-secondary float-end" href="/">
+    &laquo; Voltar
+  </a>
+
+  <div class="row">
+    <div class="col-4">
+      <h3 class="mt-4 text-center text-bold">Pessoas</h3>
+      <div class="card mb-4">
+        <table class="table" id="tablePessoas" data-id="<%= data?.id %>">
+          <thead>
+            <tr>
+              <th style="width: 1%;" scope="col">Pessoas</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="col-8">
+      <h3 class="mt-4 text-center text-bold">Prêmios</h3>
+      <div class="card mb-4">
+        <table class="table" id="tablePremios" data-id="<%= data?.id %>">
+          <thead>
+            <tr>
+              <th style="width: 1%;" scope="col">#</th>
+              <th scope="col">Prêmio</th>
+              <th style="width: 1%;" scope="col">Quantidade</th>
+              <th style="width: 1%;" scope="col">Sorteados</th>
+              <th style="width: 1%;" scope="col"></th>
+              <th style="width: 1%;" scope="col"></th>
+              <th style="width: 1%;" scope="col"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <th></th>
+              <th></th>
+              <th></th>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="crud" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+      </div>
+      <div class="modal-body mx-auto">
+        <div class="spinner-border" role="status"></div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/public/js/premios/index.js"></script>

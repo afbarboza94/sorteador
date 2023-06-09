@@ -21,7 +21,7 @@ class Sorteio extends MainModel {
     const a = await MainModel.serverProcessing({
       ...params,
       columns: [
-        "id", "nome", "dataformatted", "id", "id_excluir"
+        "id", "nome", "dataformatted", "id", "id", "id_excluir"
       ],
       colsOrder: [
         "id", "nome", "data"

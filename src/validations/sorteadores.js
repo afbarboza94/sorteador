@@ -51,4 +51,29 @@ module.exports = {
             }
         },
     ],
+    delete: [
+        body('id')
+            .notEmpty()
+            .withMessage('O campo ID é obrigatório.')
+            .trim()
+            .escape()
+            .custom(async (value, { req }) => {
+                if (value) {
+                    // const result = await Categoria.findAndCountAll({ where: { id: value } });
+                    // if (!result.count) {
+                    //     throw new Error('Categoria não encontrada.');
+                    // }
+                }
+                return true;
+            }),
+        (req, res, next) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(422).json({ errors: errors.array() });
+            }
+            else {
+                next();
+            }
+        }
+    ],
 };

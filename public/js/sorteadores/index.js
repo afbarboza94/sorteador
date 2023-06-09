@@ -1,6 +1,6 @@
 const modalElement = document.getElementById('crud');
 
-const tableElement = document.querySelector(`#tableSorteiios`);
+const tableElement = document.querySelector(`#tableSorteios`);
 
 window.addEventListener('load', function () {
     tableElement.serverProcessing({
@@ -16,11 +16,19 @@ window.addEventListener('load', function () {
             sortable: false,
             searchable: false,
             render: function (cell, idx) {
-                return `<div class="text-center"><a style="cursor: pointer" onclick="showModal(${cell.innerHTML});"><i class="fas fa-pencil"></i></a></div>`;
+                return `<div class="text-center"><a href="/premios?sorteio=${cell.innerHTML}" class="btn btn-success btn-sm">Prêmios</i></a></div>`;
             }
         },
         {
             select: 4,
+            sortable: false,
+            searchable: false,
+            render: function (cell, idx) {
+                return `<div class="text-center"><a style="cursor: pointer" onclick="showModal(${cell.innerHTML});"><i class="fas fa-pencil"></i></a></div>`;
+            }
+        },
+        {
+            select: 5,
             sortable: false,
             searchable: false,
             render: function (cell, idx) {

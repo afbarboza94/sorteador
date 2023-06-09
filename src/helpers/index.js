@@ -1,6 +1,6 @@
 module.exports.isEmpty = value => (typeof value === 'undefined'
     || value === null
-    || value.trim() === ''
+    || value.toString().trim() === ''
     || value.length === 0
     || Object.keys(value).length === 0);
 
