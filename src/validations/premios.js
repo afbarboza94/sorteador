@@ -29,7 +29,7 @@ module.exports = {
                 }
                 return true;
             }),
-        defaultValidInput({ name: 'quantidade', caption: 'Quantidade', sanitizeNumber: { digits: 2 }, }),
+        defaultValidInput({ name: 'quantidade', caption: 'Quantidade', sanitizeNumber: { digits: 0 }, }),
         defaultValidInput({ name: 'descricao', isNotEmpty: false, toUpperCase: false, }),
         defaultValidCallback,
     ],

@@ -1,0 +1,65 @@
+<div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <form action="/listassorteios/sortear" method="post" id="formSortear">
+            <input type="hidden" name="id" value="<%= premio.id %>">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <button type="button" class="btn btn-primary btn-sm"
+                        onclick="document.getElementById('crud').loadModal()"><i class="fas fa-sync-alt"></i></button>
+                    Sortear Prêmio <%= premio.nome %> <small>Quantidade <b>
+                                <%= premio.quantidade %>
+                            </b></small>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                                name="considerar_ganhadores">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                <b>
+                                    CONSIDERAR GANHADORES DOS OUTROS PRÊMIOS NESSE SORTEIO?
+                                </b>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <% if (premio.sorteadosJson) { %>
+                    <div class="row">
+                        <div class="col-12 w-100">
+                            <div class="card border border-primary">
+                                <div class="card-header bg-primary text-white py-0">
+                                    Premiados
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <% sorteadosJson=JSON.parse(premio.sorteadosJson) %>
+                                            <% for( let index=0; index < sorteadosJson.length; index++ ) { %>
+                                                <div class="col-12 input-group input-group-sm mb-3 text-center">
+                                                    <%= sorteadosJson[index] %>
+                                                </div>
+                                                <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+            <div class="modal-footer">
+                <div class="row w-100">
+                    <div class="col-2 d-grid gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                    <div class="col-10 d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Sortear</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/public/js/premios/sortear.js"></script>

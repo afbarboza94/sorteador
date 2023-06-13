@@ -3,7 +3,7 @@
         console.clear();
 
         document.querySelector('[name="quantidade"]')
-            .mask('999.999.999,99', {
+            .mask('99.999.999.999', {
                 autoUnmask: true,
                 removeMaskOnSubmit: true,
                 numericInput: true,

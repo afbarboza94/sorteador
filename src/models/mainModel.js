@@ -8,7 +8,7 @@ class MainModel extends Model {
     static formatNumber = (sqlField, casasDecimais = 2) => {
         const zeros = '0'.repeat(casasDecimais);
 
-        return `replace(printf('%,3d', ${sqlField}), ',', '.') || ',' || case instr(${sqlField}, '.')` +
+        return `replace(printf('%,3d', ${sqlField}), ',', '.') || ${casasDecimais > 0 ? "','" : "''"} || case instr(${sqlField}, '.')` +
             `  when 0 then '${zeros}'` +
             `  else substr(substr(${sqlField}, instr(${sqlField}, '.') + 1, ${casasDecimais}) || '${zeros}', 1, ${casasDecimais}) end`
     };

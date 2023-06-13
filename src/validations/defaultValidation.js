@@ -41,7 +41,9 @@ module.exports = {
         if (sanitizeNumber?.hasOwnProperty('digits')) {
             valid.customSanitizer(value => {
                 let number = nArredonda(value, sanitizeNumber.digits).toString();
-                let v = nArredonda(`${number.slice(0, sanitizeNumber.digits * -1)}.${number.slice(sanitizeNumber.digits * -1)}`);
+                let v = sanitizeNumber.digits > 0
+                    ? nArredonda(`${number.slice(0, sanitizeNumber.digits * -1)}.${number.slice(sanitizeNumber.digits * -1)}`)
+                    : number;
                 return v;
             })
                 .isNumeric();

@@ -19,15 +19,18 @@ window.addEventListener('load', function () {
         },
         {
             select: 3,
-            render: (cell, idx) => `<div class="text-center">${cell.innerHTML}</div>`
+            render: (cell, idx) => `<div class="text-center" div-sorteados>${cell.innerHTML.split(',').join(',<br>')}</div>`
         },
         {
             select: 4,
             sortable: false,
             searchable: false,
-            render: function (cell, idx) {
-                return `<div class="text-center"><a style="cursor: pointer" class="btn btn-secondary" onclick="showModalSortear(${cell.innerHTML});">Sortear</a></div>`;
-            }
+            render: /**
+            * @param {Element} cell
+            */
+                function (cell, idx) {
+                    return `<div class="text-center"><a style="cursor: pointer" class="btn btn-${(cell.previousSibling.innerHTML.length) > 0 ? 'success' : 'secondary'}" onclick="showModalSortear(${cell.innerHTML});">Sortear</a></div>`;
+                }
         },
         {
             select: 5,

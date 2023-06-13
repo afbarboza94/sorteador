@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "clear && nodemon ."
+    "start": "clear && nodemon .",
+    "electron": "electron ."
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0-alpha3",
     "consign": "^0.1.6",
+    "crypto": "^1.0.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
@@ -28,6 +30,7 @@
     "sweetalert": "^2.1.2"
   },
   "devDependencies": {
+    "electron": "^25.1.0",
     "nodemon": "^2.0.22"
   }
 }
