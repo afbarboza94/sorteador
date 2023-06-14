@@ -19,7 +19,15 @@ window.addEventListener('load', function () {
         },
         {
             select: 3,
-            render: (cell, idx) => `<div class="text-center" div-sorteados>${cell.innerHTML.split(',').join(',<br>')}</div>`
+            render: /**
+            * @param {Element} cell
+            */(cell, idx) => {
+                    const sorteadosArray = cell.innerHTML.split(',');
+                    return `<div div-sorteados>` +
+                        `<span class="text-truncate" style="width: 200px">${(sorteadosArray[0] ?? '')}</span>&nbsp;` +
+                        (sorteadosArray.length > 1 ? `<span class="badge bg-secondary" style="cursor: pointer" onclick="showModalSortear(${cell.nextSibling.innerHTML});">+${sorteadosArray.length - 1}</span>` : '') +
+                        `</div>`;
+                }
         },
         {
             select: 4,

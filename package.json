@@ -1,15 +1,17 @@
 {
   "name": "sorteador",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.3",
+  "description": "Sistema de sorteio para ACAN",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "clear && nodemon .",
-    "electron": "electron ."
+    "nodemon": "nodemon --exec electron .",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "keywords": [],
-  "author": "",
+  "author": "ACAN",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
@@ -19,6 +21,7 @@
     "consign": "^0.1.6",
     "crypto": "^1.0.1",
     "ejs": "^3.1.9",
+    "electron-squirrel-startup": "^1.0.0",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "flatpickr": "^4.6.13",
@@ -26,10 +29,15 @@
     "inputmask": "^5.0.8",
     "moment": "^2.29.4",
     "sequelize": "^6.31.1",
-    "sqlite3": "^5.1.6",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.1.1",
+    "@electron-forge/maker-deb": "^6.1.1",
+    "@electron-forge/maker-rpm": "^6.1.1",
+    "@electron-forge/maker-squirrel": "^6.1.1",
+    "@electron-forge/maker-zip": "^6.1.1",
     "electron": "^25.1.0",
     "nodemon": "^2.0.22"
   }

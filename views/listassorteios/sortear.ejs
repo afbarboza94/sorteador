@@ -35,12 +35,15 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <% sorteadosJson=JSON.parse(premio.sorteadosJson) %>
-                                            <% for( let index=0; index < sorteadosJson.length; index++ ) { %>
-                                                <div class="col-12 input-group input-group-sm mb-3 text-center">
-                                                    <%= sorteadosJson[index] %>
-                                                </div>
-                                                <% } %>
+                                        <% sorteadosJson=(JSON.parse(premio.sorteadosJson)).sort() %>
+                                            <ol class="list-group list-group-numbered">
+                                                <% for( let index=0; index < sorteadosJson.length; index++ ) { %>
+                                                    <li
+                                                        class="list-group-item text-dark<%- (index % 2 == 0 ? ' list-group-item-light' : '') %>">
+                                                        <%= sorteadosJson[index] %>
+                                                    </li>
+                                                    <% } %>
+                                            </ol>
                                     </div>
                                 </div>
                             </div>

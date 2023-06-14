@@ -1,10 +1,14 @@
 const Sequelize = require('sequelize');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
 /**
  * @type {import('sequelize/types/sequelize').Sequelize}
  */
 const sequelize = new Sequelize({
+    dialectModule: sqlite3,
     dialect: 'sqlite',
-    storage: './src/database/database.sqlite'
+    storage: path.resolve(__dirname, '../../../src/database/database.sqlite')
 });
 
 (async () => {

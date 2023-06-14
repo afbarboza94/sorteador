@@ -35,7 +35,7 @@ class Premio extends MainModel {
         `  j.sorteadosJson,\n` +
         `  Premios.id, Premios.id as id_excluir\n`,
       from_join: `from Premios\n` +
-        `join (\n`+
+        `left join (\n`+
         `    select group_concat(value) as sorteadosJson, id\n`+
         `    from (\n`+
         `        select j.value, Premios.id\n`+
