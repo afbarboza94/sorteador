@@ -5,7 +5,10 @@ module.exports = {
     icon: `./public/img/favicon.ico`,
     win32metadata: {
       FileDescription: 'Sorteador',
-    }
+    },
+    ignore: [
+      path.resolve(__dirname, 'src/database'),
+    ]
   },
   rebuildConfig: {},
   makers: [
@@ -14,7 +17,7 @@ module.exports = {
       config: {
         iconUrl: 'https://sunfarms.com.br/images/favicon.ico',
         title: 'Sorteador',
-        setupIcon: path.resolve(__dirname,`public/img/favicon.ico`),
+        setupIcon: path.resolve(__dirname, `public/img/favicon.ico`),
       },
     },
     {
