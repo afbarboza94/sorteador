@@ -1,6 +1,6 @@
 {
   "name": "sorteador",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Sistema de sorteio para ACAN",
   "main": "index.js",
   "scripts": {

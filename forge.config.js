@@ -7,7 +7,7 @@ module.exports = {
       FileDescription: 'Sorteador',
     },
     ignore: [
-      path.resolve(__dirname, 'src/database'),
+      /^\/src\/database($|\/)/,
     ]
   },
   rebuildConfig: {},
